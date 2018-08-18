@@ -1,0 +1,69 @@
+##---------------------------------------------------------------------------##
+# CLIENT Configuration
+##---------------------------------------------------------------------------##
+
+server:
+  port: ${SERVER_PORT:8090}
+
+##---------------------------------------------------------------------------##
+spring:
+  application:
+    name: hystrix-client
+
+
+serviceId: ${SERVICE_ID:microservice-producer}
+
+##---------------------------------------------------------------------------##
+# SBA Client details:
+spring.boot.admin.username: admin
+spring.boot.admin.password: admin
+
+spring.boot.admin.client.url: "http://localhost:1111"
+
+
+##---------------------------------------------------------------------------##
+logging:
+  level:
+    root: 'INFO'
+    org.springframework: 'ERROR'
+    org.springframework.web: 'INFO'
+
+##---------------------------------------------------------------------------##
+## NOTE: Enable Management endpoints
+
+management:
+  #  see ActuatorSecurity.java
+  #  security:
+  #    enabled: false
+
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+  # Allow all details for Hystrix dashboard
+  # {status: UP}
+  endpoint:
+    health:
+      show-details: always
+
+##---------------------------------------------------------------------------##
+#management.endpoint.hystrix.config:
+
+# To disable Hystrix in Feign
+feign:
+  hystrix:
+    enabled: true
+
+# To set thread isolation to SEMAPHORE
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+
+##---------------------------------------------------------------------------##

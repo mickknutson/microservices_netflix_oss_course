@@ -1,0 +1,71 @@
+##---------------------------------------------------------------------------##
+# Service Configuration
+##---------------------------------------------------------------------------##
+
+server:
+  port: ${SERVER_PORT:0}
+
+##---------------------------------------------------------------------------##
+spring:
+  application:
+    name: microservice-producer
+
+
+serviceId: ${SERVICE_ID:microservice-producer}
+
+##---------------------------------------------------------------------------##
+# ${eureka.instance.instance-id}
+eureka:
+    client:
+#      registerWithEureka: false
+#      fetchRegistry: false
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+
+    instance:
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      #hostname: 192.168.99.100
+      leaseRenewalIntervalInSeconds: 5
+      leaseExpirationDurationInSeconds: 10
+
+##---------------------------------------------------------------------------##
+fail-after.enabled: false
+fail-after.count: 100
+
+
+##---------------------------------------------------------------------------##
+# SBA Client details:
+spring.boot.admin.username: admin
+spring.boot.admin.password: admin
+
+spring.boot.admin.client.url: "http://localhost:1111"
+
+
+##---------------------------------------------------------------------------##
+logging:
+  level:
+    root: 'INFO'
+    org.springframework: 'ERROR'
+
+##---------------------------------------------------------------------------##
+## NOTE: Enable Management endpoints
+
+management:
+  #  see ActuatorSecurity.java
+  #  security:
+  #    enabled: false
+
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+  # Allow all details for Hystrix dashboard
+  endpoint:
+    health:
+      show-details: always
+
+##---------------------------------------------------------------------------##

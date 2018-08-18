@@ -1,0 +1,84 @@
+##---------------------------------------------------------------------------##
+# CLIENT Configuration
+##---------------------------------------------------------------------------##
+
+server:
+  port: ${SERVER_PORT:7979}
+
+##---------------------------------------------------------------------------##
+spring:
+  application:
+    name: hystrix-dashboard
+
+
+##---------------------------------------------------------------------------##
+info:
+  component: Hystrix Dashboard
+  
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+
+##---------------------------------------------------------------------------##
+eureka:
+  client:
+    #Region where eureka is deployed -For AWS specify one of the AWS regions, for other datacenters specify a arbitrary string
+    #indicating the region.This is normally specified as a -D option (eg) -Deureka.region=us-east-1
+    region: default
+
+
+    #For eureka clients running in eureka server, it needs to connect to servers in other zones
+    preferSameZone: false
+
+    #Change this if you want to use a DNS based lookup for determining other eureka servers. For example
+    #of specifying the DNS entries, check the eureka-client-test.properties, eureka-client-prod.properties
+    #shouldUseDns: false
+
+    us-east-1:
+      availabilityZones: default
+
+  instance:
+    #Virtual host name by which the clients identifies this service
+    virtualHostName: ${spring.application.name}
+
+
+##---------------------------------------------------------------------------##
+# SBA Client details:
+spring.boot.admin.username: admin
+spring.boot.admin.password: admin
+
+spring.boot.admin.client.url: "http://localhost:1111"
+
+
+##---------------------------------------------------------------------------##
+logging:
+  level:
+    root: 'INFO'
+    org.springframework: 'ERROR'
+    org.springframework.web: 'INFO'
+
+##---------------------------------------------------------------------------##
+## NOTE: Enable Management endpoints
+
+management:
+  #  see ActuatorSecurity.java
+  #  security:
+  #    enabled: false
+
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+  # Allow all details for Hystrix dashboard
+  endpoint:
+    health:
+      show-details: always
+
+##---------------------------------------------------------------------------##

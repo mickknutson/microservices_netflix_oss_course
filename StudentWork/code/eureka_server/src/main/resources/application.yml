@@ -1,0 +1,71 @@
+##---------------------------------------------------------------------------##
+# EUREKA Server Configuration
+##---------------------------------------------------------------------------##
+
+server:
+  port: ${SERVER_PORT:8761}
+
+##---------------------------------------------------------------------------##
+spring:
+  application:
+    name: eureka-server
+
+##---------------------------------------------------------------------------##
+eureka:
+
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  #    serviceUrl:
+  #      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+  server:
+    waitTimeInMsWhenSyncEmpty: 10
+    enableSelfPreservation: false
+    renewalPercentThreshold: 0.49
+
+    peerNodeReadTimeoutMs: 10
+
+  instance:
+    #    hostname: 192.168.99.100
+#    leaseRenewalIntervalInSeconds: 10
+#    leaseExpirationDurationInSeconds: 20
+
+
+##---------------------------------------------------------------------------##
+# Spring Boot Admin Client details:
+spring.boot.admin.username: admin
+spring.boot.admin.password: admin
+
+#spring.boot.admin.client.url: ${ADMIN_URL:"http://localhost:1111"}
+spring.boot.admin.client.url: "http://localhost:1111"
+
+
+##---------------------------------------------------------------------------##
+logging:
+  level:
+    root: 'INFO'
+    org.springframework: 'ERROR'
+
+##---------------------------------------------------------------------------##
+## NOTE: Enable Management endpoints
+
+management:
+  #  see ActuatorSecurity.java
+  #  security:
+  #    enabled: false
+
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+  # Allow all details for Hystrix dashboard
+  endpoint:
+    health:
+      show-details: always
+
+##---------------------------------------------------------------------------##

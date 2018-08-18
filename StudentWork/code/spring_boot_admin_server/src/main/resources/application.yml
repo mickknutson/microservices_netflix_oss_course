@@ -1,0 +1,56 @@
+##---------------------------------------------------------------------------##
+# Spring Boot Admin Server Configuration
+##---------------------------------------------------------------------------##
+
+server:
+  port: ${SERVER_PORT:1111}
+
+##---------------------------------------------------------------------------##
+spring.boot.admin.notify.slack.webhook-url: https://hooks.slack.com/services/T59877979797676/08908089AL/0999999999996767671eL
+spring.boot.admin.notify.slack.message: "*#{application.name}*  is *#{to.status}*"
+
+
+# username to authenticate
+security.user.name: admin
+security.user.password: admin
+
+
+#spring.boot.admin.routes.endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream
+
+
+##---------------------------------------------------------------------------##
+# SBA Client details:
+spring.boot.admin.username: admin
+spring.boot.admin.password: admin
+
+spring.boot.admin.client.url: "http://localhost:1111"
+
+
+##---------------------------------------------------------------------------##
+logging:
+  level:
+    root: 'INFO'
+    org.springframework: 'ERROR'
+
+##---------------------------------------------------------------------------##
+## NOTE: Enable Management endpoints
+
+management:
+  #  see ActuatorSecurity.java
+  #  security:
+  #    enabled: false
+
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+  # Allow all details for Hystrix dashboard
+  endpoint:
+    health:
+      show-details: always
+
+##---------------------------------------------------------------------------##

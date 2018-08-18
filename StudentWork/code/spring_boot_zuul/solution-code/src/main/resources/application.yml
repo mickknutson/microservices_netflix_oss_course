@@ -1,0 +1,57 @@
+spring:
+  #---------------- RabbitMQ -----------------#
+  rabbitmq:
+    #Default username and pass
+    dynamic: true
+#    host: mfk
+    port: 5672
+    username: guest
+    password: guest
+
+jsa.rabbitmq.queue: jsa.myqueue1
+jsa.rabbitmq.exchange: jsa.direct1
+#jsa.rabbitmq.routingkey: jsa.routingkey1
+
+#jsa.rabbitmq.exchange: jsa.fanout
+
+queue.name: msQueue
+
+queue.demo.name: msDemoQueue
+
+##---------------------------------------------------------------------------##
+# SBA Client details:
+spring.boot.admin.username: admin
+spring.boot.admin.password: admin
+
+spring.boot.admin.client.url: "http://localhost:1111"
+
+
+##---------------------------------------------------------------------------##
+logging:
+  level:
+    root: 'INFO'
+    org.springframework: 'ERROR'
+    org.springframework.web: 'INFO'
+
+##---------------------------------------------------------------------------##
+## NOTE: Enable Management endpoints
+
+management:
+  #  see ActuatorSecurity.java
+  #  security:
+  #    enabled: false
+
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+  # Allow all details for Hystrix dashboard
+  endpoint:
+    health:
+      show-details: always
+
+##---------------------------------------------------------------------------##

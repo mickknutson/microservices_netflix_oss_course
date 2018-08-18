@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>pom</packaging>
+    <groupId>com.baselogic.microservices.netflix.oss</groupId>
+    <artifactId>spring_boot_amqp</artifactId>
+    <version>1.0.0.RELEASE</version>
+
+    <name>${project.artifactId}</name>
+    <description>Lab Parent</description>
+
+    <parent>
+        <groupId>com.baselogic.microservices.netflix.oss</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0.RELEASE</version>
+    </parent>
+
+    <modules>
+        <!--<module>lab-code</module>-->
+        <module>solution-code</module>
+    </modules>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

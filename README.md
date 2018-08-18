@@ -1,2 +1,1 @@
-# microservices_netflix_oss_course
-microservices_netflix_oss_course
+# spring_boot_course

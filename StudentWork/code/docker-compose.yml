@@ -1,0 +1,210 @@
+##---------------------------------------------------------------------------##
+## docker-compose -f docker-compose.yml
+##
+## docker-compose -f docker-compose-tls.yml
+##
+##
+## Taken from:
+## https://docs.docker.com/compose/compose-file/
+## https://docs.docker.com/compose/compose-file/#compose-file-structure-and-examples
+##
+# Possible solution https://stackoverflow.com/questions/45271645/docker-compose-and-spring-boot-config-server
+#
+# https://docs.docker.com/compose/compose-file/
+#
+# https://docs.docker.com/edge/engine/reference/commandline/stack/
+#
+##---------------------------------------------------------------------------##
+version: "3.4"
+
+services:
+##---------------------------------------------------------------------------##
+
+#  ngnix:
+#    image: nginix/ngnix
+#
+#  mysql:
+#    image: mysql/mysql
+
+# serverices.configserver.container_name=configserver
+
+  ##-------------------------------------------------------------------------##
+  ## Note: Config Server
+  ##-------------------------------------------------------------------------##
+  configserver:
+    container_name: configserver
+
+    #-------------------------------------------------------------------------#
+    # Note: Does the build actually create the image?
+    build:
+      context: ./configserver
+      #           configA.dockerfile
+      dockerfile: Dockerfile
+
+      # Set build-time variables for one service:
+      # docker-compose
+      # --build-arg build_tag="1 foo bar"
+      # --build-arg APP_ENV=PROD
+#      args:
+#        build_number: ${build_tag}
+#        APP_ENV: ${APP_ENV}
+
+    # -e VARIABLE
+#    env_file:
+#      - "./configserver/configserver.env"
+#     - "$HOME/.docker/env/configserver.${APP_ENV}.env"
+
+    #-------------------------------------------------------------------------#
+    # Note: replace username/repo:tag with your name and image details
+    image: mickknutson/configserver:latest
+#    image: mickknutson/configserver:HOTFIX.1.2.3
+
+    #-------------------------------------------------------------------------#
+    # Note: Expose ports without publishing them to the host machine
+    # - they’ll only be accessible to linked services.
+    expose:
+      - 8888
+      - 8443
+
+    #-------------------------------------------------------------------------#
+    # Note: Either specify both ports (HOST:CONTAINER), or just the container port (a random host port will be chosen).
+#    ports:
+#      - "8888:8888"
+#      - 8443:8443
+
+    #-------------------------------------------------------------------------#
+    # Note: Configure our custom network
+    networks:
+      cloud-config-net:
+        # misc: This will set the host config to a hard-coded IP address
+#        ipv4_address: 172.42.0.10
+
+    #-------------------------------------------------------------------------#
+    # Note: Setup container volume
+    volumes:
+      - "$HOME/microservices_config_repo:/app/microservices_config_repo"
+
+    #-------------------------------------------------------------------------#
+    # Note: Environment variables to set / override in Dockerfile
+    environment:
+    # -e "CLOUD_CONFIG_URI=http://configserver:8888"
+      - CLOUD_CONFIG_REPO=file:////app/microservices_config_repo
+      - SPRING_PROFILES_ACTIVE=dev
+      - HEALTHCHECK_URI=configserver.baselogic.io:8888/health
+
+
+    #-------------------------------------------------------------------------#
+    # Note: Container Health Checks
+    # docker inspect --format "{{json .State.Health.Status }}" configserver
+    healthcheck:
+      test: ["CMD", "curl", "-f", "0.0.0.0:8888/health"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 2s
+
+    #-------------------------------------------------------------------------#
+    # Note: Restart Policy
+    restart: always
+
+  ##-------------------------------------------------------------------------##
+  ## Note: Microservices Client
+  ##-------------------------------------------------------------------------##
+  microservicesclient:
+    container_name: microservicesclient
+
+    #-------------------------------------------------------------------------#
+    # Note: Does the build actually create the image?
+    build:
+      context: ./microservicesclient
+      dockerfile: Dockerfile
+
+#      args:
+#        build_number: 1.2.3
+
+    #-------------------------------------------------------------------------#
+    # Note: replace username/repo:tag with your name and image details
+    image: mickknutson/microservicesclient:latest
+
+
+    #-------------------------------------------------------------------------#
+    # Note: Expose ports without publishing them to the host machine
+    # - they’ll only be accessible to linked services.
+#    expose:
+#      - "8080"
+
+    #-------------------------------------------------------------------------#
+    # Note: Either specify both ports (HOST:CONTAINER), or just the container port (a random host port will be chosen).
+    ports:
+      - "8080:8080"
+
+    #-------------------------------------------------------------------------#
+    # Note: Container Links
+    links:
+#      - configserver
+      - configserver:configserver.baselogic.io
+
+    #-------------------------------------------------------------------------#
+    # Note: Configure our custom network
+    networks:
+      - cloud-config-net
+
+    #-------------------------------------------------------------------------#
+    # Note: depends_on will not wait for 'configserver' app to be “ready”
+    # Note: before starting 'microservicesclient'
+    # - only until they have been started.
+    depends_on:
+      - configserver
+
+
+    #-------------------------------------------------------------------------#
+    # Note: Environment variables to set / override in Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - CLOUD_CONFIG_CLIENT_FAILFAST=true
+      - CLOUD_CONFIG_URI=http://configserver:8888
+#      - CLOUD_CONFIG_URI=http://configserver.baselogic.io:8888
+      - HEALTHCHECK_URI=microservicesclient:8080/health
+
+#      - javax.net.ssl.trustStore=/Users/mickknutson/keys/cloudconfig_clientauth.p12
+#      - javax.net.ssl.trustStorePassword=changeit
+
+
+    #-------------------------------------------------------------------------#
+    # Note: Container Health Checks
+    # docker inspect --format "{{json .State.Health.Status }}" microservicesclient
+    healthcheck:
+      test: ["CMD", "curl", "-f", "0.0.0.0:8080/health"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+      timeout: 2s
+
+    #-------------------------------------------------------------------------#
+    # Note: Restart Policy
+    restart: on-failure
+
+
+##---------------------------------------------------------------------------##
+## Note: Other Settings
+##---------------------------------------------------------------------------##
+
+##---------------------------------------------------------------------------##
+## Network configuration:
+networks:
+    cloud-config-net:
+      external:
+        name: cloud-config-net
+
+##---------------------------------------------------------------------------##
+# Volume configuration:
+#volumes:
+#    var_logs:
+#        external: true
+##---------------------------------------------------------------------------##
+
+
+
+##---------------------------------------------------------------------------##
+## END
+##---------------------------------------------------------------------------##
