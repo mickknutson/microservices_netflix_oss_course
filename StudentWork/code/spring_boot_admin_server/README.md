@@ -1,8 +1,14 @@
+Run Admin Server
+-----
+mvn clean spring-boot:run -e
 
 
 Admin Server URL
-----------------
+--
 URL: http://localhost:1111
+
+
+
 
 Reference:
 ---

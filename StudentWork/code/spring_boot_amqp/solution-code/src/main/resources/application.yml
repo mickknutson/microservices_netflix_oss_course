@@ -1,9 +1,16 @@
-# YAML
+##---------------------------------------------------------------------------##
+# RabbitMq Solution Configuration
+##---------------------------------------------------------------------------##
+debug: ${DEBUG_MODE:false}
 
-# debug=true
-debug: true
+server:
+  port: ${SERVER_PORT:8761}
 
+##---------------------------------------------------------------------------##
 spring:
+  application:
+    name: eureka-server
+
   #---------------- RabbitMQ -----------------#
   rabbitmq:
     #Default username and pass
@@ -19,16 +26,7 @@ jsa.rabbitmq.exchange: jsa.direct1
 #jsa.rabbitmq.exchange: jsa.fanout
 
 queue.name: msQueue
-
 queue.demo.name: msDemoQueue
-
-
-##---------------------------------------------------------------------------##
-# SBA Client details:
-spring.boot.admin.username: admin
-spring.boot.admin.password: admin
-
-spring.boot.admin.client.url: "http://localhost:1111"
 
 
 ##---------------------------------------------------------------------------##
@@ -57,5 +55,24 @@ management:
   endpoint:
     health:
       show-details: always
+
+##---------------------------------------------------------------------------##
+spring.profiles.active: SBA
+
+##---------------------------------------------------------------------------##
+## NOTE: Spring Boot Admin Application Profile Properties
+---
+
+spring:
+  profiles: SBA
+
+
+# SBA Client details:
+spring.boot.admin.username: ${ADMIN_SERVER_USERNAME:admin}
+spring.boot.admin.password: ${ADMIN_SERVER_PASSWORD:admin}
+
+#spring.boot.admin.client.url: "http://localhost:1111"
+spring.boot.admin.client.url: ${ADMIN_SERVER_URL:http://localhost:1111}
+
 
 ##---------------------------------------------------------------------------##

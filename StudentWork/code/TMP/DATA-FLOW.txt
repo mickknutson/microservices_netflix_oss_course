@@ -1,7 +1,0 @@
-
-
-DATAFLOW_VERSION=1.6.0.RELEASE docker-compose up
-
-Step 3 - Open the dashboard at http://localhost:9393/dashboard.
-
-Step 4 - Use 'Create Stream' under STREAMS Tab to define and deploy a stream time | log called 'ticktock'.

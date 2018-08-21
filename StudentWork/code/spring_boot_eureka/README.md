@@ -1,10 +1,12 @@
-README
+Eureka Server
+-------------
+
+**To run Eureka Server:**
+
+>`mvn spring-boot:run -e`
 
 ---
+
 Eureka Admin Console:
-http://localhost:8761/
-
 ---
-
-https://blog.asarkar.org/technical/netflix-eureka/
-
+http://localhost:8761/

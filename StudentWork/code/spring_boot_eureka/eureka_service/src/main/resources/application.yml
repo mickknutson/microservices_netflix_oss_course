@@ -1,6 +1,7 @@
 ##---------------------------------------------------------------------------##
 # Service Configuration
 ##---------------------------------------------------------------------------##
+debug: ${DEBUG_MODE:false}
 
 server:
   port: ${SERVER_PORT:0}
@@ -17,6 +18,7 @@ serviceId: ${SERVICE_ID:microservice-producer}
 # ${eureka.instance.instance-id}
 eureka:
     client:
+
 #      registerWithEureka: false
 #      fetchRegistry: false
       serviceUrl:
@@ -25,20 +27,12 @@ eureka:
     instance:
       instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
       #hostname: 192.168.99.100
-      leaseRenewalIntervalInSeconds: 5
+      leaseRenewalIntervalInSeconds: 10
       leaseExpirationDurationInSeconds: 10
 
 ##---------------------------------------------------------------------------##
 fail-after.enabled: false
 fail-after.count: 100
-
-
-##---------------------------------------------------------------------------##
-# SBA Client details:
-spring.boot.admin.username: admin
-spring.boot.admin.password: admin
-
-spring.boot.admin.client.url: "http://localhost:1111"
 
 
 ##---------------------------------------------------------------------------##
@@ -67,5 +61,23 @@ management:
   endpoint:
     health:
       show-details: always
+
+##---------------------------------------------------------------------------##
+spring.profiles.active: SBA
+
+##---------------------------------------------------------------------------##
+## NOTE: Spring Boot Admin Application Profile Properties
+---
+
+spring:
+  profiles: SBA
+
+
+# SBA Client details:
+spring.boot.admin.username: ${ADMIN_SERVER_USERNAME:admin}
+spring.boot.admin.password: ${ADMIN_SERVER_PASSWORD:admin}
+
+spring.boot.admin.client.url: ${ADMIN_SERVER_URL:http://localhost:1111}
+
 
 ##---------------------------------------------------------------------------##

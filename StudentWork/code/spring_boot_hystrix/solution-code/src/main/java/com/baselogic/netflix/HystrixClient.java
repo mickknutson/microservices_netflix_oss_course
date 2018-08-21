@@ -33,12 +33,15 @@ public class HystrixClient implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
         System.out.println("What's your name?");
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
 
         // HelloAPI first:
         processHelloMessage(name);
+
+        System.out.println(echoService.getGreeting(name));
 
         // Exit
         System.out.println("Press return to exit");
@@ -73,9 +76,12 @@ public class HystrixClient implements CommandLineRunner {
         Map<String, Integer> responseCounts = new HashMap<>();
 
         for (int i = 0; i < 1_000; i++) {
+
             Map<String, Object> resp = helloAPI.getGreeting(name);
             String greeting = (String) resp.get("message");
+
             System.out.println("Server says: " + resp.get("message"));
+
             if (!responseCounts.containsKey(greeting)) {
                 responseCounts.put(greeting, 0);
             }

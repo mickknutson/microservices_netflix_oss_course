@@ -1,6 +1,7 @@
 ##---------------------------------------------------------------------------##
 # CLIENT Configuration
 ##---------------------------------------------------------------------------##
+debug: ${DEBUG_MODE:false}
 
 server:
   port: ${SERVER_PORT:8090}
@@ -12,13 +13,6 @@ spring:
 
 
 serviceId: ${SERVICE_ID:microservice-producer}
-
-##---------------------------------------------------------------------------##
-# SBA Client details:
-spring.boot.admin.username: admin
-spring.boot.admin.password: admin
-
-spring.boot.admin.client.url: "http://localhost:1111"
 
 
 ##---------------------------------------------------------------------------##
@@ -53,7 +47,7 @@ management:
 ##---------------------------------------------------------------------------##
 #management.endpoint.hystrix.config:
 
-# To disable Hystrix in Feign
+# To enable/disable Hystrix in Feign
 feign:
   hystrix:
     enabled: true
@@ -65,5 +59,23 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
+
+##---------------------------------------------------------------------------##
+spring.profiles.active: SBA
+
+##---------------------------------------------------------------------------##
+## NOTE: Spring Boot Admin Application Profile Properties
+---
+
+spring:
+  profiles: SBA
+
+
+# SBA Client details:
+spring.boot.admin.username: ${ADMIN_SERVER_USERNAME:admin}
+spring.boot.admin.password: ${ADMIN_SERVER_PASSWORD:admin}
+
+spring.boot.admin.client.url: ${ADMIN_SERVER_URL:http://localhost:1111}
+
 
 ##---------------------------------------------------------------------------##

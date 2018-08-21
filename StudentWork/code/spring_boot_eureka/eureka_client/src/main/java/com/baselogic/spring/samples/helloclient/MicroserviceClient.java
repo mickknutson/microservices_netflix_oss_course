@@ -62,8 +62,10 @@ public class MicroserviceClient implements CommandLineRunner {
             System.out.println("Sorry, but I can't find a server to use");
             shutDown();
         }
+
         // Pick one
         int chosen = (int) (Math.random() * helloServers.size());
+
         ServiceInstance chosenInstance = helloServers.get(chosen);
 
         RestTemplate rt = restTemplateBuilder.build();

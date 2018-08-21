@@ -4,10 +4,10 @@
 
     <packaging>pom</packaging>
     <groupId>com.baselogic.microservices.netflix.oss</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>microservices_netflix_oss_parent</artifactId>
     <version>1.0.0.RELEASE</version>
 
-    <name>netflix_oss_parent</name>
+    <name>${project.artifactId}</name>
     <description>Netflix OSS Course</description>
 
     <properties>
@@ -39,6 +39,7 @@
 
         <module>spring_boot_zuul</module>
         <module>spring_boot_zipkin</module>
+        <module>spring_cloud_gateway</module>
     </modules>
 
     <build>

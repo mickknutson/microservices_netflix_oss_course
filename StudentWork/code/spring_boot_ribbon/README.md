@@ -1,15 +1,13 @@
-README
+Instructions to start this section
+---
 
+1. The `eureka_server` must be running.
+2. At least one `eureka_service` must be running to serve as the service for this Client.
 
-Referrence:
------------
-https://dzone.com/articles/microservices-tutorial-ribbon-as-a-load-balancer-1
+Next
+---
 
-https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-ribbon.html
+**Running Ribbon Client**
 
-https://o7planning.org/en/11739/undertanding-load-balancing-in-spring-cloud-with-ribbon-and-example
-
-https://andrewtarry.com/spring_boot_hystrix_feign/
-
-
+`mvn clean spring-boot:run -e`
 

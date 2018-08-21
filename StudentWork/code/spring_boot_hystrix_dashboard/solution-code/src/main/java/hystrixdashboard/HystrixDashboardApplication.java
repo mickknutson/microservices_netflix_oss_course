@@ -10,6 +10,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,9 +38,10 @@ public class HystrixDashboardApplication extends SpringBootServletInitializer {
         new SpringApplicationBuilder(HystrixDashboardApplication.class).web(true).run(args);
     }
 
-//    @Bean
-//    public ServletRegistrationBean mockStreamServlet() {
-//        return new ServletRegistrationBean(new MockStreamServlet(), "/mock.stream");
-//    }
+//    @Profile("MOCK_STREAM")
+    @Bean
+    public ServletRegistrationBean mockStreamServlet() {
+        return new ServletRegistrationBean(new MockStreamServlet(), "/mock.stream");
+    }
 
 }

@@ -1,7 +1,13 @@
+##---------------------------------------------------------------------------##
+# Dashboard Configuration
+##---------------------------------------------------------------------------##
 
+##---------------------------------------------------------------------------##
 spring:
   application:
-    name: hystrixdashboard
+    name: hystrix-dashboard
+
+  # Cloud Configuration
   cloud:
     config:
       uri: ${vcap.services.${PREFIX:}configserver.credentials.uri:http://user:password@localhost:8888}

@@ -13,12 +13,15 @@ spring:
 
 serviceId: ${SERVICE_ID:microservice-producer}
 
-##---------------------------------------------------------------------------##
-# SBA Client details:
-spring.boot.admin.username: admin
-spring.boot.admin.password: admin
 
-spring.boot.admin.client.url: "http://localhost:1111"
+
+##---------------------------------------------------------------------------##
+# Ribbon:
+ribbon:
+#  MaxAutoRetries: 1
+#  MaxAutoRetriesNextServer: 2
+#  OkToRetryOnAllOperations: true
+
 
 
 ##---------------------------------------------------------------------------##
@@ -48,5 +51,23 @@ management:
   endpoint:
     health:
       show-details: always
+
+##---------------------------------------------------------------------------##
+spring.profiles.active: SBA
+
+##---------------------------------------------------------------------------##
+## NOTE: Spring Boot Admin Application Profile Properties
+---
+
+spring:
+  profiles: SBA
+
+
+# SBA Client details:
+spring.boot.admin.username: ${ADMIN_SERVER_USERNAME:admin}
+spring.boot.admin.password: ${ADMIN_SERVER_PASSWORD:admin}
+
+spring.boot.admin.client.url: ${ADMIN_SERVER_URL:http://localhost:1111}
+
 
 ##---------------------------------------------------------------------------##

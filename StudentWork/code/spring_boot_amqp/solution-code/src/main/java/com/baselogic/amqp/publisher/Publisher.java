@@ -15,7 +15,7 @@ public class Publisher {
     @Autowired
     private Queue queueDemoName;
 
-    @Scheduled(fixedDelay = 1000, initialDelay = 500)
+    @Scheduled(fixedDelay = 1_000, initialDelay = 500)
     public void send() {
         String message = "Hello World!";
         this.template.convertAndSend(queueDemoName.getName(), message);
