@@ -16,45 +16,35 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false
+          enabled: true
 
       # Routes:
-
       routes:
+      - id: httpbin
+        uri: http://httpbin.org
+        predicates:
+        - Path=/get/**
+        filters:
+        - AddRequestHeader=FooBar,FourtyTwo
+        - AddResponseHeader=Rick,Morty
+        - RewritePath=/get/(?<path>.*), /$\{path}
+
+
+      # Standard Price Route
       - id: price-service
         uri: lb://price-service
         predicates:
         - Path=/price/**
         filters:
-        - AddResponseHeader=Access-Control-Allow-Origin, *
-        - RewritePath=/price-service/(?<segment>.*), /$\{segment}
+          # mod-rewrite
+        - RewritePath=/price/(?<path>.*), /$\{path}
 
-#      routes:
-#      - id: price-service
-#        uri: lb://price-service
-#        predicates:
-#        - Path=/price/**
-#        filters:
-#        - RewritePath=/price/(?.*), /$\{path}
-#      - id: department-service
-#        uri: lb://department-service
-#        predicates:
-#        - Path=/department/**
-#        filters:
-#        - RewritePath=/department/(?.*), /$\{path}
-#      - id: organization-service
-#        uri: lb://organization-service
-#        predicates:
-#        - Path=/organization/**
-#        filters:
-#        - RewritePath=/organization/(?.*), /$\{path}
+        # Rate filters:
+#        - name: RequestRateLimiter
+#          args:
+#            redis-rate-limiter.replenishRate: 2
+#            redis-rate-limiter.burstCapacity: 4
 
-##---------------------------------------------------------------------------##
-# SBA Client details:
-#spring.boot.admin.username: admin
-#spring.boot.admin.password: admin
-#
-#spring.boot.admin.client.url: "http://localhost:1111"
 
 
 ##---------------------------------------------------------------------------##
@@ -68,6 +58,7 @@ logging:
     org.springframework.http.server.reactive: DEBUG
     org.springframework.web.reactive: DEBUG
 reactor.ipc.netty: DEBUG
+
 ##---------------------------------------------------------------------------##
 ## NOTE: Enable Management endpoints
 
@@ -90,7 +81,7 @@ management:
       show-details: always
 
 ##---------------------------------------------------------------------------##
-spring.profiles.active: SBA
+#spring.profiles.active: SBA
 
 ##---------------------------------------------------------------------------##
 ## NOTE: Spring Boot Admin Application Profile Properties
@@ -98,7 +89,6 @@ spring.profiles.active: SBA
 
 spring:
   profiles: SBA
-
 
 # SBA Client details:
 spring.boot.admin.username: ${ADMIN_SERVER_USERNAME:admin}

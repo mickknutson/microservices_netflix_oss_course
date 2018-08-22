@@ -63,7 +63,7 @@ management:
       show-details: always
 
 ##---------------------------------------------------------------------------##
-spring.profiles.active: SBA
+#spring.profiles.active: SBA
 
 ##---------------------------------------------------------------------------##
 ## NOTE: Spring Boot Admin Application Profile Properties

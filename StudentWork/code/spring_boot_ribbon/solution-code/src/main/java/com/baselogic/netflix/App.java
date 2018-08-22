@@ -6,10 +6,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+
+// Enable Eureka
 @EnableDiscoveryClient
 
+// Ribbon enabled client
 @EnableFeignClients
-
+// @LoadBalanced
 public class App {
 
 	public static void main(String[] args) {

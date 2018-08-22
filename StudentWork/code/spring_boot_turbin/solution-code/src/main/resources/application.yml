@@ -39,7 +39,7 @@ management:
   port: -1
 
 ##---------------------------------------------------------------------------##
-spring.profiles.active: SBA
+#spring.profiles.active: SBA
 
 ##---------------------------------------------------------------------------##
 ## NOTE: Spring Boot Admin Application Profile Properties

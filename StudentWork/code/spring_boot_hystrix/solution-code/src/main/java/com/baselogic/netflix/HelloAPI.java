@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "microservice-producer", fallback = HelloAPIFallback.class)
+@FeignClient(value = "microservice-producer",
+        fallback = HelloAPIFallback.class)
 public interface HelloAPI {
 
     @RequestMapping(value = "/hello-message", method = RequestMethod.GET)

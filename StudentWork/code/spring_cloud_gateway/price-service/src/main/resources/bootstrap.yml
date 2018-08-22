@@ -12,14 +12,6 @@ spring:
 
 
 ##---------------------------------------------------------------------------##
-# SBA Client details:
-#spring.boot.admin.username: admin
-#spring.boot.admin.password: admin
-#
-#spring.boot.admin.client.url: "http://localhost:1111"
-
-
-##---------------------------------------------------------------------------##
 logging:
   level:
     root: 'INFO'
@@ -48,9 +40,6 @@ management:
       show-details: always
 
 ##---------------------------------------------------------------------------##
-spring.profiles.active: SBA
-
-##---------------------------------------------------------------------------##
 ## NOTE: Spring Boot Admin Application Profile Properties
 ---
 
@@ -62,7 +51,6 @@ spring:
 spring.boot.admin.username: ${ADMIN_SERVER_USERNAME:admin}
 spring.boot.admin.password: ${ADMIN_SERVER_PASSWORD:admin}
 
-#spring.boot.admin.client.url: "http://localhost:1111"
 spring.boot.admin.client.url: ${ADMIN_SERVER_URL:http://localhost:1111}
 
 

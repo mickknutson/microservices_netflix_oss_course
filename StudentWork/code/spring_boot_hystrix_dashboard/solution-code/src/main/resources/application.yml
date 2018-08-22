@@ -75,7 +75,7 @@ management:
       show-details: always
 
 ##---------------------------------------------------------------------------##
-spring.profiles.active: SBA, MOCK_STREAM
+#spring.profiles.active: SBA, MOCK_STREAM
 
 ##---------------------------------------------------------------------------##
 ## NOTE: Spring Boot Admin Application Profile Properties

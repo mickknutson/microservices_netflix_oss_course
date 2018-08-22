@@ -25,6 +25,7 @@ public class HystrixClient implements CommandLineRunner {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
+    // Ignore
     @Autowired
     private HelloAPI helloAPI;
 

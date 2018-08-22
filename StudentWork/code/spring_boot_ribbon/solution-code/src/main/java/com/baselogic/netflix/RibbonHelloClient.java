@@ -23,6 +23,7 @@ public class RibbonHelloClient implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
         System.out.println("What's your name?");
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
