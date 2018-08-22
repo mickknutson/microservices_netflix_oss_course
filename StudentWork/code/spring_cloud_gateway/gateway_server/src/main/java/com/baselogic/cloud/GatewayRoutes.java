@@ -11,6 +11,7 @@ public class GatewayRoutes {
 
 //    @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+
         return builder.routes()
                 // Ping route
                 .route("path_route", r -> r.path("/get")
