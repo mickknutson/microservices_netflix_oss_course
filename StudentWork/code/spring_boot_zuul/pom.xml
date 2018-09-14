@@ -51,6 +51,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>
@@ -67,6 +68,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>

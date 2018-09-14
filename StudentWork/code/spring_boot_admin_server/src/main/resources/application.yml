@@ -26,11 +26,6 @@ spring.boot.admin.password: admin
 spring.boot.admin.client.url: "http://localhost:1111"
 
 
-##---------------------------------------------------------------------------##
-logging:
-  level:
-    root: 'INFO'
-    org.springframework: 'ERROR'
 
 ##---------------------------------------------------------------------------##
 ## NOTE: Enable Management endpoints
