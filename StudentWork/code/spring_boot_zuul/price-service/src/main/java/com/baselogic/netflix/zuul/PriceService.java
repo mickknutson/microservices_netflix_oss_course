@@ -2,6 +2,7 @@ package com.baselogic.netflix.zuul;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,9 @@ import java.util.concurrent.ThreadLocalRandom;
 @RestController
 public class PriceService {
 
+    @Value("${server.port}")
+    String serverPort;
+
     private static Logger log = LoggerFactory.getLogger(PriceService.class);
 
     // add mapping for "/price"
@@ -18,7 +22,7 @@ public class PriceService {
     public String getPrice() {
 
         int price = ThreadLocalRandom.current().nextInt(1, 20_000 + 1);
-        String priceString = "$" + price;
+        String priceString = "$" + price + ":" + serverPort;
         log.info(priceString);
         return priceString;
     }

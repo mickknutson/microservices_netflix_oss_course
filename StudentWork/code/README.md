@@ -1,7 +1,9 @@
 Github Repository location
 --------------------------
 
-[https://github.com/mickknutson/microservices_netflix_oss_course](https://github.com/mickknutson/microservices_netflix_oss_course)
+#### [https://github.com/mickknutson/microservices_netflix_oss_course](https://github.com/mickknutson/microservices_netflix_oss_course)
+
+
 ---
 
 
@@ -56,6 +58,12 @@ http://localhost:7171
 
 
 
+---
 
+    mvn sonar:sonar \
+      -Dsonar.projectKey=mickknutson_microservices_netflix_oss_course \
+      -Dsonar.organization=mickknutson-github \
+      -Dsonar.host.url=https://sonarcloud.io \
+      -Dsonar.login=215c023bae5b7d8e10116f40ed6d4bfb271e4ed6
 
 

@@ -29,6 +29,9 @@ public class RequestLoggerFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+
+        // More logic here...
+
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
